@@ -14,8 +14,20 @@ class WatchListSerializer(serializers.ModelSerializer):
 class StreamPlatformSerializer(serializers.ModelSerializer):
 # "watchlist" has been defined in models.py,
 # therefore we using it as a variable
+# this shows all the details like timestamp, platform etc
     watchlist = WatchListSerializer(many=True, read_only=True)
     
+    # this shows just the name of the movie
+    #  watchlist = serializers.StringRelatedField(many=True)
+    
+    # watchlist = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    
+    # watchlist = serializers.HyperlinkedRelatedField(
+    #     many = True,
+    #     read_only = True,
+    #     view_name = 'movie-detail'
+    # )
+
     class Meta:
         model = StreamPlatform
         fields = "__all__"
