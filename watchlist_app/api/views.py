@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework import generics
 from rest_framework import mixins
-
-
+from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
 class ReviewCreate(generics.CreateAPIView):
     serializer_class = ReviewSerializer
 
@@ -26,6 +26,39 @@ class ReviewList(generics.ListAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+class StreamPlatformVS(viewsets.ModelViewSet):
+    queryset = StreamPlatform.objects.all()
+    serializer_class = StreamPlatformSerializer
+
+
+# class StreamPlatformVS(viewsets.ViewSet):
+    
+#     def list(self, request):
+#         queryset = StreamPlatform.objects.all()
+        # serializer = StreamPlatformSerializer(queryset, many=True)
+#         return Response(serializer.data)
+
+#     def retrieve(self, request, pk=None):
+#         queryset = StreamPlatform.objects.all()
+#         watchlist = get_object_or_404(queryset, pk=pk)
+#         serializer = StreamPlatformSerializer(watchlist)
+#         return Response(serializer.data)
+
+#     def create(self, request):
+#         serializer = StreamPlatformSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         else:
+#             return Response(serializer.errors)
+
+#     def destroy(self, request, pk):
+#         movie = StreamPlatform.objects.get(pk=pk)
+#         movie.delete()
+#         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 class StreamPlatformListAV(APIView):
 
