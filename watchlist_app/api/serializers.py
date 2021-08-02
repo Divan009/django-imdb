@@ -1,10 +1,18 @@
 from rest_framework import serializers
-from watchlist_app.models import WatchList, StreamPlatform
+from watchlist_app.models import Review, WatchList, StreamPlatform
+
+class ReviewSerializer(serializers.ModelSerializer):
+# add reviews from this serializer
+    class Meta:
+        model = Review
+        fields = "__all__"
 
 class WatchListSerializer(serializers.ModelSerializer):
     # custom field that is not inside our Model or View
     # len_name = serializers.SerializerMethodField()
-
+    # this is a get field, reading only
+    reviews = ReviewSerializer(many=True, read_only=True)
+    
     class Meta:
         model = WatchList
         fields = "__all__"
